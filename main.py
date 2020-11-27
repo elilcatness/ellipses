@@ -1,14 +1,35 @@
 import sys
 from random import randint
-from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtGui import QPainter, QColor
+
+from PyQt5.QtCore import QRect, QMetaObject, QCoreApplication
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
+from PyQt5.QtGui import QPainter, QColor, QFont
 
 
-class Window(QWidget):
+class Ui_Form:
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.resize(600, 573)
+        self.pushButton = QPushButton(Form)
+        self.pushButton.setGeometry(QRect(240, 520, 111, 41))
+        font = QFont()
+        font.setPointSize(11)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName("pushButton")
+
+        self.retranslateUi(Form)
+        QMetaObject.connectSlotsByName(Form)
+
+    def retranslateUi(self, Form):
+        _translate = QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Жёлтые окружности"))
+        self.pushButton.setText(_translate("Form", "Нарисовать"))
+
+
+class Window(QWidget, Ui_Form):
     def __init__(self):
         super(Window, self).__init__()
-        uic.loadUi('Ui.ui', self)
+        self.setupUi(self)
 
         self.paint = False
         self.ellipses = []
